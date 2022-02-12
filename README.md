@@ -1,6 +1,26 @@
-# Project 2: Shiny App Development
+# Project 2: Visiting NYC in Covid-19
 
 ### [Project Description](doc/project2_desc.md)
+
+We are presenting a dashboard comparing various favorite neighborhoods to visit when travelling to NYC. We want this to feel like a targeted blog, with specific recommendations for places to explore when you are here. These will be backed up by statistics relating and comparing the different districts. 
+
+Rough ideas of the common stastic we will build out for the dashboard
+
+Kaimin - safety data
+Noah - cleanliness and loudness metric. Visibility
+Weixun - traffic/metropolitan
+Kexin - 
+
+
+Ideas for the district/area we want to cover: 
+Noah -
+Kaimin - 
+Weixun -  
+Kexin - 
+
+
+Ideally, each statistics will be calculated once for the last 20 months and then one more recently (like a last 7 days or a last 30 days). 
+
 
 ![screenshot](doc/figs/map.jpg)
 
