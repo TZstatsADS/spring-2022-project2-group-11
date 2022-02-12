@@ -6,17 +6,17 @@ We are presenting a dashboard comparing various favorite neighborhoods to visit 
 
 Rough ideas of the common stastic we will build out for the dashboard
 
-Kaimin - safety data
-Noah - cleanliness and loudness metric. Visibility
-Weixun - traffic/metropolitan
-Kexin - 
+- Kaimin - safety data ??
+- Noah - cleanliness and loudness metric. Visibility
+- Weixun - traffic/metropolitan ??
+- Kexin - ??
 
 
 Ideas for the district/area we want to cover: 
-Noah -
-Kaimin - 
-Weixun -  
-Kexin - 
+- Noah - Dumbo brooklyn
+- Kaimin - 
+- Weixun -  
+- Kexin - 
 
 
 Ideally, each statistics will be calculated once for the last 20 months and then one more recently (like a last 7 days or a last 30 days). 
