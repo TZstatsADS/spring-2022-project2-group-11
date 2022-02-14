@@ -16,7 +16,7 @@ Ideas for the district/area we want to cover:
 - Noah - Dumbo brooklyn
 - Kaimin - 
 - Weixun -  
-- Kexin - 
+- Kexin - Health stuffs: NYC Restaurant Inspection/Daily Covid cases/
 
 
 Ideally, each statistics will be calculated once for the last 20 months and then one more recently (like a last 7 days or a last 30 days). 
