@@ -1,74 +1,88 @@
+#   ____________________________________________________________________________
+#   UI                                                                      ####
 
-if (!require("shiny")) {
-  install.packages("shiny")
-  library(shiny)
-}
-if (!require("shinyWidgets")) {
-  install.packages("shinyWidgets")
-  library(shinyWidgets)
-}
-if (!require("shinythemes")) {
-  install.packages("shinythemes")
-  library(shinythemes)
-}
-if (!require("leaflet")) {
-  install.packages("leaflet")
-  library(leaflet)
-}
-if (!require("leaflet.extras")) {
-  install.packages("leaflet.extras")
-  library(leaflet.extras)
-}
+library(shiny)
+library(leaflet)
+library(plotly)
+library(shinyjs)
+library(shinyBS)
 
-# Define UI for application that draws a histogram
-shinyUI(
-    navbarPage(strong("Citi Bike Study",style="color: white;"), 
-               theme=shinytheme("cerulean"), # select your themes https://rstudio.github.io/shinythemes/
-#------------------------------- tab panel - Maps ---------------------------------
-                tabPanel("Maps",
-                         icon = icon("map-marker-alt"), #choose the icon for
-                         div(class = 'outer',
-                        # side by side plots
-                        fluidRow(
-                                splitLayout(cellWidths = c("50%", "50%"), 
-                                             leafletOutput("left_map",width="100%",height=1200),
-                                             leafletOutput("right_map",width="100%",height=1200))),
-                        #control panel on the left
-                        absolutePanel(id = "control", class = "panel panel-default", fixed = TRUE, draggable = TRUE,
-                                      top = 200, left = 50, right = "auto", bottom = "auto", width = 250, height = "auto",
-                                      tags$h4('Citi Bike Activity Comparison'), 
-                                      tags$br(),
-                                      tags$h5('Pre-covid(Left) Right(Right)'), 
-                                      prettyRadioButtons(
-                                                      inputId = "adjust_score",
-                                                      label = "Score List:", 
-                                                      choices = c("start_cnt", 
-                                                                  "end_cnt", 
-                                                                  "day_diff_absolute",
-                                                                  "day_diff_percentage"),
-                                                      inline = TRUE, 
-                                                      status = "danger",
-                                                      fill = TRUE
-                                                        ),
-                                      awesomeRadio("adjust_time", 
-                                                   label="Time",
-                                                    choices =c("Overall",
-                                                               "Weekday", 
-                                                               "Weekend"), 
-                                                    selected = "Overall",
-                                                    status = "warning"),
-                                      # selectInput('adjust_weather',
-                                      #             label = 'Adjust for Weather',
-                                      #             choices = c('Yes','No'), 
-                                      #             selected = 'Yes'
-                                      #             ),
-                                      style = "opacity: 0.80"
-                                      
-                                ), #Panel Control - Closing
-                            ) #Maps - Div closing
-                        ) #tabPanel maps closing
-   
+source("appParts.R")
+source("readData.R")
 
 
-    ) #navbarPage closing  
-) #Shiny UI closing    
+### . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ..
+### Colors                                                                  ####
+
+#C10250 purple
+#03BCC0 green
+#D2D945 yellow/green
+#FCB040 orange
+#FF5850 red
+#436983 hipster blue
+
+shinyUI(navbarPage(title = "NYC in Covid",
+                   theme = "style/style.css",
+                   footer = includeHTML("footer.html"),
+                   fluid = TRUE, 
+                   collapsible = TRUE,
+                   
+                   # ----------------------------------
+                   # tab panel 1 - Home
+                   tabPanel("Home",
+                            includeHTML("home.html"),
+                            tags$script(src = "plugins/scripts.js"),
+                            tags$head(
+                              tags$link(rel = "stylesheet", 
+                                        type = "text/css", 
+                                        href = "plugins/font-awesome-4.7.0/css/font-awesome.min.css"),
+                              tags$link(rel = "icon", 
+                                        type = "image/png", 
+                                        href = "images/logo_icon.png")
+                            )
+                   ),
+                   
+                   # ----------------------------------
+                   # tab panel 2 - Neighborhood Browser
+                   tabPanel("Dumbo",
+                            neighborhoodDescription(),
+                            includeHTML("scrollToTop.html")
+                   ),
+                   
+                   # ----------------------------------
+                   # tab panel 3 - Location Comparison
+                   tabPanel("Property2",
+                            propertyComparison()
+                   ),
+                   
+                   # ----------------------------------
+                   # tab panel 3 - Location Comparison
+                   tabPanel("Property3",
+                            propertyComparison()
+                   ),
+                   
+                   # ----------------------------------
+                   
+                   # tab panel 4 - Location Comparison
+                   tabPanel("Property4",
+                            propertyComparison()
+                   ),
+                   
+                   # ----------------------------------
+                   # tab panel 5 - About
+                   tabPanel("About",
+                            includeHTML("about.html"),
+                            shinyjs::useShinyjs(),
+                            tags$head(
+                                tags$link(rel = "stylesheet", 
+                                          type = "text/css", 
+                                          href = "plugins/carousel.css"),
+                                tags$script(src = "plugins/holder.js")
+                            ),
+                            tags$style(type="text/css",
+                                       ".shiny-output-error { visibility: hidden; }",
+                                       ".shiny-output-error:before { visibility: hidden; }"
+                            )
+                   )
+                   
+))
