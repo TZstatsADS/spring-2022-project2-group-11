@@ -51,26 +51,26 @@ shinyUI(navbarPage(title = "NYC in Covid",
                    
                    # ----------------------------------
                    # tab panel 3 - Location Comparison
-                   tabPanel("Property2",
+                   tabPanel("NEIGHBORHOOD2",
                             propertyComparison()
                    ),
                    
                    # ----------------------------------
                    # tab panel 3 - Location Comparison
-                   tabPanel("Property3",
+                   tabPanel("NEIGHBORHOOD3",
                             propertyComparison()
                    ),
                    
                    # ----------------------------------
                    
                    # tab panel 4 - Location Comparison
-                   tabPanel("Property4",
+                   tabPanel("NEIGHBORHOOD4",
                             propertyComparison()
                    ),
                    
                    # ----------------------------------
                    # tab panel 5 - About
-                   tabPanel("About",
+                   tabPanel("AboutUS",
                             includeHTML("about.html"),
                             shinyjs::useShinyjs(),
                             tags$head(
