@@ -1,0 +1,138 @@
+<!-- Carousel
+================================================== -->
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+  <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="item active">
+      <img src="images/bg1.jpg" alt="1">
+      <div class="container">
+        <div class="carousel-caption">
+          <h1 class="fit-head">Find a safe place!</h1>
+          <p class="fit-text">Use our data to find safe places to explore.</p>
+          <p>
+            <a class="btn btn-lg btn-primary" onclick="$('li:eq(1) a').tab('show');" role="button">Get started now &raquo;</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <img src="images/bg2.jpg" alt="2">
+      <div class="container">
+  <div class="carousel-caption">
+    <h1 class="fit-head">Compare the activity of neighborhoods</h1>
+    <p class="fit-text">Do you like a more relaxed style of neighborhood, or a party place?</p>
+    <a class="btn btn-lg btn-primary" onclick="$('li:eq(2) a').tab('show');" role="button">Get started now &raquo;</a>
+    <!-- <p>
+      <form>
+        <div class="form-group">
+          <input id="addr1" type="text" class="form-control" placeholder="Search now...">
+          <input id="addr2" type="text" class="form-control" placeholder="Search now...">
+        </div>
+      </form>
+    </p> -->
+  </div>
+      </div>
+    </div>
+    <div class="item">
+      <img src="images/bg4.jpg" alt="3">
+      <div class="container">
+        <div class="carousel-caption">
+          <h1 class="fit-head">Avoid discrimination</h1>
+          <p class="fit-text">We provide a meaningful metric to avoid?</p>
+          <p>
+            <a class="btn btn-lg btn-primary" onclick="$('li:eq(1) a').tab('show');" role="button">Get started now &raquo;</a>
+          </p>
+        </div>
+      </div> 
+    </div>
+  </div>
+  <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+  <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+</div>
+<!-- /.carousel -->
+
+<div class="container marketing">
+  <!-- Three columns of text below the carousel -->
+  <div class="row">
+  <div class="container">
+    <h1 class="text-center fit-h1" style="font-size: 4em; margin-bottom: 30px;">Perfect Locations!</h1>
+  </div>
+  </div>
+
+  <div class="col-md-4">
+    <img src="images/evaluator-01.png" width="50%" alt="evaluator">
+    <h2>Location Evaluators</h2>
+    <p>You have identified a few interesting investment opportunities and want to make your final decision?</p>
+    <a class="btn btn-primary" onclick="$('li:eq(3) a').tab('show');" role="button">Compare locations &raquo;</a>
+  </div><!-- /.col-md-4 -->
+  </div><!-- /.row -->
+
+
+  <!-- START THE FEATURETTES -->
+
+  <hr class="featurette-divider">
+
+  <div class="row featurette center-on-xs">
+  </div>
+  <div class="col-md-7 col-md-pull-5">
+    <h2 class="featurette-heading">Traveling.<br><span class="text-muted">Data-driven recommendations</span></h2>
+    <p class="lead">Why try some random blogger, when you can instead trust the data!. <a data-toggle="collapse" data-parent="#accordionOne" href="#collapseOne">Read more&hellip;</a></p>
+     <div class="panel-group transparent-panel-group" id="accordionOne">
+        <div class="panel panel-default">
+          <div id="collapseOne" class="panel-collapse collapse">
+            <div class="panel-body text-left">
+          </div>
+        </div>
+      </div>
+  </div>
+  </div>
+
+  <hr class="featurette-divider">
+
+  <div class="row featurette center-on-xs">
+  <div class="col-md-5">
+    <img class="featurette-image img-responsive" src="images/analysis.png" alt = "">
+  </div>
+  <div class="col-md-7">
+    <h2 class="featurette-heading">We <i class="fa fa-heart" style="color:#bf2604;"></i> Data.<br><span class="text-muted">We really, really do</span></h2>
+    <p class="lead">We analyzed billions of data points so you don&rsquo;t have to! <a data-toggle="collapse" data-parent="#accordionTwo" href="#collapseTwo">Read more&hellip;</a></p>
+     <div class="panel-group transparent-panel-group" id="accordionTwo">
+        <div class="panel panel-default">
+          <div id="collapseTwo" class="panel-collapse collapse">
+            <div class="panel-body text-left">
+              <p>The objective of Intelligentsia is to provide residential real estate investors with a home value appreciation forecast for neighborhoods within New York City. Our solution ranks NYC census tracts by <em>likelihood of gentrification, defined as a 20%+ gain in median home value over a two (and three) year period</em>. The model is designed for use on census tracts with a <em>starting median home value less than or equal to $500,000</em>. These parameter values were selected to address both the shortfalls of existing real estate tools as well as to address the interests of our target audience:</p>
+              <ul>
+                <li><em>Census tracts</em> are small enough to distinguish distinctive area characteristics and are not addressed by existing forecasting solutions (such as Case-Shiller)</li>
+                <li><em>Median home value</em> data covered more census tracts than other measures (such as cost per square foot) and therefore open up more new investment opportunities</li>
+                <li>A <em>20%+ gain in median home value</em> represents the minimum return that must be attained to recoup transaction costs on a $500,000 investment</li>
+                <li>The <em>2- and 3-year forecast windows</em> were the shortest time period in which a viable number of census tracts saw 20%+ gain in median home value</li>
+              </ul>
+              <p>A plethora of data were acquired and analyzed to create the Intelligentsia model. Among those data sets are:</p>
+              <ul>
+                <li>Retail environment data: Yelp ratings</li>
+                <li>Transportation data: NYC TLC taxicab trips, NYC Subway network and stations, residents&rsquo; travel time to work</li>
+                <li>Quality of life: Number and location of trees (NYC Open Data), Crime complaints (NYPD)</li>
+                <li>Online data: Edits of Wikipedia neighborhood articles, Google Search Trends</li>
+                <li>Housing: Median home value, gross rent, year structure built (Zillow, ACS/Census)</li>
+                <li>Demographics: Median income, age, education, poverty, employment (ACS/Census)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="featurette-divider">
+
+  <div class="row featurette center-on-xs">
+    <div class="col-md-5 col-md-push-7">
+      <img class="featurette-image img-responsive" src="images/group_photo.jpg" alt = "">
+    </div>
+  </div>
+<!-- /END THE FEATURETTES -->
