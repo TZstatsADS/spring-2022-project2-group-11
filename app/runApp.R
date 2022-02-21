@@ -1,3 +1,11 @@
+#loading the necessary libraries and packages
 library(shiny)
+library(plotly)
+library(dplyr)
+library(ggplot2)
+source("global.R")
+source("ui.R")
+source("server.R")
 
-runApp(readline("Enter directory of shiny app: "))
+# Calling the other files
+shinyApp(ui = ui, server = server)

@@ -8,8 +8,6 @@ library(shinyjs)
 library(shinyBS)
 
 source("appParts.R")
-source("readData.R")
-
 
 ### . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ..
 ### Colors                                                                  ####
@@ -21,7 +19,7 @@ source("readData.R")
 #FF5850 red
 #436983 hipster blue
 
-shinyUI(navbarPage(title = "NYC in Covid",
+ui <- navbarPage(title = "NYC in Covid",
                    theme = "style/style.css",
                    footer = includeHTML("footer.html"),
                    fluid = TRUE, 
@@ -52,20 +50,51 @@ shinyUI(navbarPage(title = "NYC in Covid",
                    # ----------------------------------
                    # tab panel 3 - Location Comparison
                    tabPanel("NEIGHBORHOOD2",
-                            propertyComparison()
+                            fluidPage()
                    ),
                    
                    # ----------------------------------
                    # tab panel 3 - Location Comparison
                    tabPanel("NEIGHBORHOOD3",
-                            propertyComparison()
+                            fluidPage()
                    ),
                    
                    # ----------------------------------
                    
                    # tab panel 4 - Location Comparison
                    tabPanel("NEIGHBORHOOD4",
-                            propertyComparison()
+                            fluidPage()
+                   ),
+                   tabPanel("Safety", fluidPage(
+                     
+                     # App title ----
+                     titlePanel("Safety Information"),
+                     
+                     # Sidebar layout with input and output definitions ----
+                     sidebarLayout(
+                       
+                       # Sidebar panel for inputs ----
+                       sidebarPanel(
+                         
+                         # Input: Select for the borough ----
+                         selectInput(inputId = "safety_measure_type",
+                                     label = "Choose a safety type of interest:",
+                                     choices = c("shooting", "arrest", "use_of_force"))
+                       ),
+                       
+                       # Main panel for displaying outputs ----
+                       mainPanel(
+                         
+                         # Output: tsPlot on borough ----
+                         plotOutput(outputId = "safetyMapPlot"),
+                         
+                         plotOutput(outputId = "safetyTrend"),
+                         
+                         plotOutput(outputId = "covidTrend")
+                         
+                       )
+                     )
+                   )
                    ),
                    
                    # ----------------------------------
@@ -85,4 +114,4 @@ shinyUI(navbarPage(title = "NYC in Covid",
                             )
                    )
                    
-))
+)
