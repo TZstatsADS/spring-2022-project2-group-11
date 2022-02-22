@@ -106,6 +106,25 @@ force_count_df$Var1 <- as.character(force_count_df$Var1)
 #Covid data
 cases_by_day_df <- read.csv("https://raw.githubusercontent.com/nychealth/coronavirus-data/master/trends/cases-by-day.csv")
 
+# Restaurant seating data
+rs_open <- read.csv("data/Open_Restaurant_Applications.csv")
+rs_open <- rs_open[which(!is.na(rs_open$Latitude) & !is.na(rs_open$Longitude)), ]
+rs_open$Building.Number <- ifelse(rs_open$Building.Number == "undefined", "", rs_open$Building.Number)
+
+# Restaurant Inspection data
+rs_inspect <- read_excel("data/New_York_City_Restaurant_Inspection_Results.xlsx")
+rs_inspect <- rs_inspect %>%
+  mutate(grades = ifelse(SCORE < 14, "A", ifelse(SCORE >= 14 & SCORE <= 27, "B", "C")))
+rs_inspect <- rs_inspect[which(rs_inspect$INSPECTION_DATE >= "2020-06-01"), ]
+rs_inspect <- sqldf("
+                     select distinct(CAMIS), DBA, BORO, BUILDING, STREET,ZIPCODE, `CUISINE DESCRIPTION`, 
+                     SCORE, INSPECTION_DATE, Longitude, Latitude, grades
+                    from rs_inspect
+                    where Longitude is not NULL and
+                    Latitude is not NULL and
+                    grades is not NULL and
+                    ZIPCODE is not NULL
+                    ")
 
 print("processed all data")
 

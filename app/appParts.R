@@ -12,7 +12,7 @@ neighborhoodDescription <- function() {
             fluidRow(
                 column(7,
                        sliderInput("topK","Show top k census tracts",
-                                   10, max(pred$rank), 50, 10, width = "100%"),
+                                   10, 0, 50, 10, width = "100%"),
                        leafletOutput("map", height = 600)
                        ),
                 hidden(column(5, class = "hood-info", id = "reactiveOutput1",

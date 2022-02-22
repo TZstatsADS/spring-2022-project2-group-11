@@ -55,9 +55,53 @@ ui <- navbarPage(title = "NYC in Covid",
                    
                    # ----------------------------------
                    # tab panel 3 - Location Comparison
-                   tabPanel("NEIGHBORHOOD3",
-                            fluidPage()
-                   ),
+                 tabPanel("Restaurant",
+                          tabsetPanel(
+                            tabPanel("Restaurant Seating",
+                                     fluidPage(
+                                       fluidRow(
+                                         column(6, selectInput(
+                                           'borough', 'Select Borough(s)',
+                                           choices = c('Choose Borough' = '',
+                                                       'Bronx', 
+                                                       'Brooklyn',
+                                                       'Manhattan',
+                                                       'Queens',
+                                                       'Staten Island'), multiple = T)
+                                         ), 
+                                         column(6, checkboxGroupInput("check_seating", "Check Seating", 
+                                                                      choices = c('Sidewalk' = "sidewalk",
+                                                                                  'Roadway' = 'roadway',
+                                                                                  'Both' = 'both'), 
+                                                                      selected = NULL)
+                                         ) 
+                                       )  # fluidRow end
+                                     ),  # fluidPage end
+                                     leafletOutput('rs_map', height = "600px")
+                            ), # tabPanel end
+                            
+                            tabPanel("Restaurant Inspection", fluidPage(
+                              fluidRow(
+                                column(2,
+                                       selectInput(
+                                         'boro',
+                                         'Select A Borough',
+                                         choices = c('Bronx',
+                                                     'Brooklyn',
+                                                     'Manhattan',
+                                                     'Queens',
+                                                     'Staten Island'), 
+                                         selected = 'Bronx', multiple = F),
+                                       checkboxInput("check", "Compare each borough", value = FALSE)
+                                ), #column end
+                                column(10, mainPanel(plotOutput('rs_inspect_plot', 
+                                                                width = "1000px", height = "650px")
+                                ))
+                              ) # fluidRow end
+                            ) # fluidPage end
+                            )
+                          ) # tabsetPanel end
+                 ), # tabPanel end
                    
                    # ----------------------------------
                    

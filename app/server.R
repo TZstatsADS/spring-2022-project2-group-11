@@ -27,6 +27,10 @@ library(RColorBrewer)
 library(DT)
 library(shinyBS)
 library(ggplot2)
+library(readxl)
+library(htmltools)
+library(htmlwidgets)
+library(sqldf)
 
 # source("keyring.R")
 
@@ -139,5 +143,101 @@ server <- function(input, output) {
          main = paste("Number of covid cases in all precincts"))
     axis.Date(1, at = data$month, format= "%m-%Y", las = 1)
   })
+
+  
+##  ............................................................................
+##  Restaurant Tab                                                              ####  
+  # ----------------- Restaurant Seating --------------------------
+  # Restaurant Map
+  output$rs_map <- renderLeaflet({
+    leaflet(rs_open, options = leafletOptions(minZoom = 2, maxZoom = 20)) %>%
+      addProviderTiles(providers$CartoDB.Positron) %>%
+      setView(lng = -73.95, lat = 40.72, zoom = 10) %>%
+      addMarkers(lng = rs_open$Longitude, lat = rs_open$Latitude,
+                 clusterOptions = markerClusterOptions(),
+                 label = lapply(
+                   lapply(seq(nrow(rs_open)), function(i){
+                     paste0('<b>',rs_open[i, "Restaurant.Name"], '</b>', '<br/>', 
+                            'Address: ', rs_open[i, "Street"], " ", rs_open[i, "Building.Number"], '<br/>',
+                            'Zipcode: ', rs_open[i, "Postcode"], '<br/>',
+                            'Alcohol: ', rs_open[i, "Qualify.Alcohol"]) }), htmltools::HTML)) %>%
+      addResetMapButton()
+  })
+  
+  # filtered data for zooming in specific area in the map
+  selected_boro_map <- reactive({
     
-}
+    if(is.null(input$borough) && is.null(input$check_seating)){
+      rs_open %>%
+        filter(Borough %in% levels(rs_open$Borough))}
+    else if (!is.null(input$borough) && is.null(input$check_seating)){
+      rs_open %>%
+        filter(Borough %in% input$borough)}
+    else if (is.null(input$borough) && !is.null(input$check_seating)){
+      rs_open %>%
+        filter(seating %in% input$check_seating)}
+    else{
+      rs_open %>%
+        filter(seating %in% input$check_seating) %>%
+        filter(Borough %in% input$borough)}
+    
+  })
+  
+  observe({
+    temp_map = selected_boro_map()
+    leafletProxy('rs_map',data = temp_map) %>%
+      fitBounds(~min(Longitude), ~min(Latitude), ~max(Longitude), ~max(Latitude)) %>% 
+      clearMarkerClusters()%>%
+      clearMarkers() %>% 
+      addMarkers(lng = temp_map$Longitude, lat = temp_map$Latitude,
+                 clusterOptions = markerClusterOptions(),
+                 label = lapply(
+                   lapply(seq(nrow(temp_map)), function(i){
+                     paste0('<b>',temp_map[i, "Restaurant.Name"], '</b>', '<br/>', 
+                            'Address: ', temp_map[i, "Street"], " ", temp_map[i, "Building.Number"], '<br/>',
+                            'Zipcode: ', temp_map[i, "Postcode"], '<br/>',
+                            'Seating: ', temp_map[i, "seating"],'<br/>',
+                            'Alcohol: ', temp_map[i, "Qualify.Alcohol"]) }), htmltools::HTML))
+  })
+  
+  #-------------------- Restaurant Inspection ---------------------
+  select_boro_inspect <- reactive({
+    rs_inspect %>%
+      filter(BORO %in% input$boro)
+  })
+  
+  output$rs_inspect_plot <- renderPlot({
+    if(input$check == FALSE){
+      ggplot(select_boro_inspect()
+             %>% count(grades, `CUISINE DESCRIPTION`), 
+             aes(fill=grades, y=n, x=`CUISINE DESCRIPTION`)) + 
+        geom_bar(position="stack", stat="identity") + 
+        theme(axis.text.x=element_text(angle=45,hjust=1,vjust=1),
+              plot.title=element_text(hjust = 0.5)
+        ) + 
+        ggtitle(paste("Counts of Restaurants in", input$boro)) + 
+        xlab("cuisine type") + ylab("counts") + 
+        scale_fill_manual("grades", values = c("A" = "#CCFFCC", "B" = "#99CCFF", "C" = "#FF9999"))
+    }
+    
+    else if(input$check == TRUE){
+      ggplot(rs_inspect 
+             %>% count(grades, BORO), 
+             aes(fill=grades, y=n, x=BORO)) + 
+        geom_bar(stat="identity") + 
+        theme(plot.title=element_text(hjust = 0.5)) + 
+        ggtitle(paste("Counts of Restaurants in Each Borough")) + 
+        xlab("boroughs") + ylab("counts") + 
+        scale_fill_manual("grades", values = c("A" = "#CCFFCC", "B" = "#99CCFF", "C" = "#FF9999"))
+    }
+    
+  }) #renderPlot end
+  
+  
+  
+  
+  
+  
+      
+} # server end
+
