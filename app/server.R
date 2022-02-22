@@ -1,36 +1,119 @@
 #   ____________________________________________________________________________
 #   Server                                                                  ####
+if (!require("shiny")) {
+  install.packages("shiny")
+  library(devtools)
+}
+if (!require("rgdal")) {
+  install.packages("rgdal")
+  library(devtools)
+}
+if (!require("leaflet")) {
+  install.packages("leaflet")
+  library(devtools)
+}
+if (!require("sp")) {
+  install.packages("sp")
+  library(devtools)
+}
+if (!require("plotly")) {
+  install.packages("plotly")
+  library(devtools)
+}
+if (!require("dplyr")) {
+  install.packages("dplyr")
+  library(devtools)
+}
+if (!require("tidyr")) {
+  install.packages("tidyr")
+  library(devtools)
+}
+if (!require("magrittr")) {
+  install.packages("magrittr")
+  library(devtools)
+}
+if (!require("lubridate")) {
+  install.packages("lubridate")
+  library(devtools)
+}
+if (!require("ggmap")) {
+  install.packages("ggmap")
+  library(devtools)
+}
+if (!require("xts")) {
+  install.packages("xts")
+  library(devtools)
+}
+if (!require("shinyjs")) {
+  install.packages("shinyjs")
+  library(devtools)
+}
+if (!require("urltools")) {
+  install.packages("urltools")
+  library(devtools)
+}
+if (!require("utils")) {
+  install.packages("utils")
+  library(devtools)
+}
+if (!require("rvest")) {
+  install.packages("rvest")
+  library(devtools)
+}
+if (!require("stringr")) {
+  install.packages("stringr")
+  library(devtools)
+}
+if (!require("rgeos")) {
+  install.packages("rgeos")
+  library(devtools)
+}
+if (!require("xml2")) {
+  install.packages("xml2")
+  library(devtools)
+}
+if (!require("selectr")) {
+  install.packages("selectr")
+  library(devtools)
+}
+if (!require("purrr")) {
+  install.packages("purrr")
+  library(devtools)
+}
+if (!require("raster")) {
+  install.packages("raster")
+  library(devtools)
+}
+if (!require("RColorBrewer")) {
+  install.packages("RColorBrewer")
+  library(devtools)
+}
+if (!require("DT")) {
+  install.packages("DT")
+  library(devtools)
+}
+if (!require("ggplot2")) {
+  install.packages("ggplot2")
+  library(devtools)
+}
+if (!require("readxl")) {
+  install.packages("readxl")
+  library(devtools)
+}
+if (!require("htmltools")) {
+  install.packages("htmltools")
+  library(devtools)
+}
+if (!require("htmlwidgets")) {
+  install.packages("htmlwidgets")
+  library(devtools)
+}
+if (!require("sqldf")) {
+  install.packages("sqldf")
+  library(devtools)
+}
 
-library(shiny)
-library(rgdal)
-library(leaflet)
-library(sp)
-library(plotly)
-library(dplyr)
-library(tidyr)
-library(magrittr)
-library(lubridate)
-library(ggmap)
-library(xts)
-library(shinyjs)
-library(jsonlite)
-library(urltools)
-library(utils)
-library(rvest)
-library(stringr)
-library(rgeos)
-library(xml2)
-library(selectr)
-library(raster)
-library(purrr)
-library(RColorBrewer)
-library(DT)
-library(shinyBS)
-library(ggplot2)
-library(readxl)
-library(htmltools)
-library(htmlwidgets)
-library(sqldf)
+
 
 # source("keyring.R")
 
