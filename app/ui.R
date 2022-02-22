@@ -39,20 +39,21 @@ ui <- navbarPage(title = "NYC in Covid",
                                         href = "images/logo_icon.png")
                             )
                    ),
-                   
-                   # ----------------------------------
-                   # tab panel 2 - Neighborhood Browser
-                   tabPanel("Dumbo",
-                            neighborhoodDescription(),
-                            includeHTML("scrollToTop.html")
-                   ),
+
                    
                    # ----------------------------------
                    # tab panel 3 - Location Comparison
-                   tabPanel("NEIGHBORHOOD2",
+                   tabPanel("Aesthetics",
                             fluidPage()
                    ),
                    
+                 
+                   # ----------------------------------
+                   # tab panel 3 - Location Comparison
+                   tabPanel("Health",
+                            fluidPage()
+                   ),                 
+                 
                    # ----------------------------------
                    # tab panel 3 - Location Comparison
                  tabPanel("Restaurant",
@@ -106,9 +107,6 @@ ui <- navbarPage(title = "NYC in Covid",
                    # ----------------------------------
                    
                    # tab panel 4 - Location Comparison
-                   tabPanel("NEIGHBORHOOD4",
-                            fluidPage()
-                   ),
                    tabPanel("Safety", fluidPage(
                      
                      # App title ----
