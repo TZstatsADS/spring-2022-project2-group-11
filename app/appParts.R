@@ -238,7 +238,7 @@ astheticPage <- function() {
   fluidPage(
     
     # Application title
-    titlePanel("NYC Mortality by Race and Sex, 2007-2014"),
+    titlePanel("What to be afraid of in NYC"),
     
     # Sidebar with a 3 inputs 
     sidebarLayout(
