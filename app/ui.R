@@ -106,38 +106,8 @@ ui <- navbarPage(title = "NYC in Covid",
                    
                    # ----------------------------------
                    
-                   # tab panel 4 - Location Comparison
-                   tabPanel("Safety", fluidPage(
-                     
-                     # App title ----
-                     titlePanel("Safety Information"),
-                     
-                     # Sidebar layout with input and output definitions ----
-                     sidebarLayout(
-                       
-                       # Sidebar panel for inputs ----
-                       sidebarPanel(
-                         
-                         # Input: Select for the borough ----
-                         selectInput(inputId = "safety_measure_type",
-                                     label = "Choose a safety type of interest:",
-                                     choices = c("shooting", "arrest", "use_of_force"))
-                       ),
-                       
-                       # Main panel for displaying outputs ----
-                       mainPanel(
-                         
-                         # Output: tsPlot on borough ----
-                         plotOutput(outputId = "safetyMapPlot"),
-                         
-                         plotOutput(outputId = "safetyTrend"),
-                         
-                         plotOutput(outputId = "covidTrend")
-                         
-                       )
-                     )
-                   )
-                   ),
+                   # tab panel 4 - Safety Comparison
+                   tabPanel("Safety", safetyPage()),
                    
                    # ----------------------------------
                    # tab panel 5 - About

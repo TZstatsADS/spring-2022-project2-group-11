@@ -97,11 +97,20 @@ spdf_fortified_raw <- tidy(spdf, region = "precinct")
 
 # Preprocess data for plotting use
 shooting_count_df <- as.data.frame(table(shooting_df$PRECINCT))
+shooting_df$PRECINCT_5243 <- shooting_df$PRECINCT
+shooting_df$DATE_5243 <- shooting_df$OCCUR_DATE
 shooting_count_df$Var1 <- as.character(shooting_count_df$Var1)
 arrest_count_df <- as.data.frame(table(arrest_df$ARREST_PRECINCT))
+arrest_df$PRECINCT_5243 <- arrest_df$ARREST_PRECINCT
+arrest_df$DATE_5243 <- arrest_df$ARREST_DATE
 arrest_count_df$Var1 <- as.character(arrest_count_df$Var1)
 force_count_df <- as.data.frame(table(force_df$Incident.Pct))
+force_df$PRECINCT_5243 <- force_df$Incident.Pct
+force_df$DATE_5243 <- force_df$Occurrence.Date
 force_count_df$Var1 <- as.character(force_count_df$Var1)
+
+all_precinct_ids <- unique(unique(shooting_count_df$Var1, arrest_count_df$Var1), force_count_df$Var1)
+all_precinct_ids <- cbind(all_precinct_ids, c("all"))
 
 #Covid data
 cases_by_day_df <- read.csv("https://raw.githubusercontent.com/nychealth/coronavirus-data/master/trends/cases-by-day.csv")

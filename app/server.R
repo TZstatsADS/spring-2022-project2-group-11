@@ -126,67 +126,80 @@ server <- function(input, output) {
 
 ##  ............................................................................
 ##  Safety Tab                                                              ####
+  
+  safety_df <- reactive({
+    if ( "shooting" %in% input$safety_measure_type){
+      if ( "all" %in% input$safety_police_precinct){
+        return(shooting_df)
+      } else {
+        return(shooting_df %>% filter(PRECINCT_5243 == input$safety_police_precinct))
+      }
+    }
+    if ( "use_of_force" %in% input$safety_measure_type){
+      if ( "all" %in% input$safety_police_precinct){
+        return(force_df)
+      } else {
+        return(force_df %>% filter(PRECINCT_5243 == input$safety_police_precinct))
+      }
+    }
+    if ( "arrest" %in% input$safety_measure_type){
+      if ( "all" %in% input$safety_police_precinct){
+        return(arrest_df)
+      } else {
+        return(arrest_df %>% filter(PRECINCT_5243 == input$safety_police_precinct))
+      }
+    }
+  })
+  
+  safety_count_df <- reactive({
+    if ( "shooting" %in% input$safety_measure_type){
+      if ( "all" %in% input$safety_police_precinct){
+        return(shooting_count_df)
+      } else {
+        return(shooting_count_df %>% filter(Var1 == input$safety_police_precinct))
+      }
+    }
+    if ( "use_of_force" %in% input$safety_measure_type){
+      if ( "all" %in% input$safety_police_precinct){
+        return(force_count_df)
+      } else {
+        return(force_count_df %>% filter(Var1 == input$safety_police_precinct))
+      }
+    }
+    if ( "arrest" %in% input$safety_measure_type){
+      if ( "all" %in% input$safety_police_precinct){
+        return(arrest_count_df)
+      } else {
+        return(arrest_count_df %>% filter(Var1 == input$safety_police_precinct))
+      }
+    }
+  })
+  
+  safety_summary_data <- reactive({
+    text <- c("There are ", sum(safety_count_df()$Freq), input$safety_measure_type, 
+              " instance(s) in ", input$safety_police_precinct, " precinct during year of 2021")
+    return(paste(text))
+    
+  })
+  
    safety_map_data <- reactive({
-      if ( "shooting" %in% input$safety_measure_type){
-        # Make the merge
-        print("loading shooting data")
-        spdf_fortified = spdf_fortified_raw %>%
-          left_join(. , shooting_count_df, by=c("id"="Var1"))
-        
-        # Note that if the number of restaurant is NA, it is in fact 0
-        spdf_fortified$Freq[ is.na(spdf_fortified$Freq)] = 0.001
-        return(spdf_fortified)
-      }
-     
-     if ( "use_of_force" %in% input$safety_measure_type){
-       # Make the merge
-       
-       print("loading use_of_force data")
-       spdf_fortified = spdf_fortified_raw %>%
-         left_join(. , force_count_df, by=c("id"="Var1"))
-       
-       # Note that if the number of restaurant is NA, it is in fact 0
-       spdf_fortified$Freq[ is.na(spdf_fortified$Freq)] = 0.001
-       return(spdf_fortified)
-     }
-      if ( "arrest" %in% input$safety_measure_type){
-        # Make the merge
-        
-        print("loading arrest data")
-        spdf_fortified = spdf_fortified_raw %>%
-          left_join(. , arrest_count_df, by=c("id"="Var1"))
-        
-        # Note that if the number of restaurant is NA, it is in fact 0
-        spdf_fortified$Freq[ is.na(spdf_fortified$Freq)] = 0.001
-        return(spdf_fortified)
-      }
+      spdf_fortified = spdf_fortified_raw %>%
+        left_join(. , safety_count_df(), by=c("id"="Var1"))
+      
+      # Note that if the number of restaurant is NA, it is in fact 0
+      spdf_fortified$Freq[ is.na(spdf_fortified$Freq)] = 0.001
+      return(spdf_fortified)
     })
    
    safety_trend_data <- reactive({
-     if ( "shooting" %in% input$safety_measure_type){
-       data = shooting_df
+       df = safety_df()
        
-       return( data %>% mutate(Month = format(as.Date(OCCUR_DATE, format = "%m/%d/%Y"), "%Y/%m"))
-               %>%group_by(Month)%>%summarise( num = length(OCCUR_DATE)) 
+       df$DATE_5243 <- as.Date(df$DATE_5243, format = "%m/%d/%Y")
+       data = subset(df, DATE_5243 > "2020-12-31" & DATE_5243 < "2022-01-01")
+       
+       return( data %>% mutate(Month = format(DATE_5243, "%Y/%m"))
+               %>%group_by(Month)%>%summarise( num = length(DATE_5243)) 
                %>%mutate( month = paste(Month,"/01", sep = ""))) 
-     }
-     if ( "use_of_force" %in% input$safety_measure_type){
-       df = force_df
-       
-       df$Occurrence.Date <- as.Date(df$Occurrence.Date, format = "%m/%d/%Y")
-       data = subset(df, Occurrence.Date > "2020-12-31" & Occurrence.Date < "2022-01-01")
-       
-       return( data %>% mutate(Month = format(Occurrence.Date, "%Y/%m"))
-               %>%group_by(Month)%>%summarise( num = length(Occurrence.Date)) 
-               %>%mutate( month = paste(Month,"/01", sep = ""))) 
-     }
-     if ( "arrest" %in% input$safety_measure_type){
-       data = arrest_df
-       
-       return( data %>% mutate(Month = format(as.Date(ARREST_DATE, format = "%m/%d/%Y"), "%Y/%m"))
-               %>%group_by(Month)%>%summarise( num = length(ARREST_DATE)) 
-               %>%mutate( month = paste(Month,"/01", sep = ""))) 
-     }
    })
 
   output$safetyMapPlot <- renderPlot({
@@ -197,6 +210,7 @@ server <- function(input, output) {
       theme_void() +
       coord_map()
   })
+  
   output$safetyTrend <- renderPlot({
     # Time Series
     process <- function() {
@@ -226,6 +240,218 @@ server <- function(input, output) {
          main = paste("Number of covid cases in all precincts"))
     axis.Date(1, at = data$month, format= "%m-%Y", las = 1)
   })
+  
+  output$safety_summary <- renderText({
+    safety_summary_data()
+  })
+  
+  ### Safety comparisons
+  
+  safety_comp_summary_data <- reactive({
+    p1_shooting <- shooting_count_df %>% filter(Var1 == input$safety_precinct_1)
+    p1_arrest <- arrest_count_df %>% filter(Var1 == input$safety_precinct_1)
+    p1_force <- force_count_df %>% filter(Var1 == input$safety_precinct_1)
+    
+    p2_shooting <- shooting_count_df %>% filter(Var1 == input$safety_precinct_2)
+    p2_arrest <- arrest_count_df %>% filter(Var1 == input$safety_precinct_2)
+    p2_force <- force_count_df %>% filter(Var1 == input$safety_precinct_2)
+    
+    text <- c("There are ", sum(p1_shooting$Freq), "shooting instance(s) in ", 
+              input$safety_precinct_1, " precinct during year of 2021. ",
+              "In comparison",
+              "there are ", sum(p2_shooting$Freq), "shooting instance(s) in ", 
+              input$safety_precinct_2, " precinct during year of 2021. ",
+              "There are ", sum(p1_arrest$Freq), "arrest instance(s) in ", 
+              input$safety_precinct_1, " precinct during year of 2021. ",
+              "In comparison",
+              "there are ", sum(p2_arrest$Freq), "arrest instance(s) in ", 
+              input$safety_precinct_2, " precinct during year of 2021. ",
+              "There are ", sum(p1_force$Freq), "use of force instance(s) in ", 
+              input$safety_precinct_1, " precinct during year of 2021. ",
+              "In comparison",
+              "there are ", sum(p2_force$Freq), "use of force instance(s) in ", 
+              input$safety_precinct_2, " precinct during year of 2021. "
+              
+              )
+    return(paste(text))
+  })
+  
+  output$safety_comparison_summary <- renderText({safety_comp_summary_data()})
+  
+  pie_charts <- reactive({
+    p1_shooting <- shooting_count_df %>% filter(Var1 == input$safety_precinct_1)
+    p1_arrest <- arrest_count_df %>% filter(Var1 == input$safety_precinct_1)
+    p1_force <- force_count_df %>% filter(Var1 == input$safety_precinct_1)
+    
+    p2_shooting <- shooting_count_df %>% filter(Var1 == input$safety_precinct_2)
+    p2_arrest <- arrest_count_df %>% filter(Var1 == input$safety_precinct_2)
+    p2_force <- force_count_df %>% filter(Var1 == input$safety_precinct_2)
+    
+    slices_s <- c(sum(p1_shooting$Freq), sum(p2_shooting$Freq))
+    lbls <- c(input$safety_precinct_1, input$safety_precinct_2)
+    
+    slices_a <- c(sum(p1_arrest$Freq), sum(p2_arrest$Freq))
+    
+    slices_f <- c(sum(p1_force$Freq), sum(p2_force$Freq))
+    
+    par(mfrow=c(1,3))
+    pie(slices_s, labels = lbls, main="Pie Chart of Shooting Instance Comparison")
+    pie(slices_a, labels = lbls, main="Pie Chart of Arrest Instance Comparison")
+    pie(slices_f, labels = lbls, main="Pie Chart of Use Of Force Instance Comparison")
+  })
+  
+  output$safety_pies <- renderPlot({
+    pie_charts()
+  })
+  
+  shooting_comp_skeleton <- reactive({
+    df = shooting_df
+    df$DATE_5243 <- as.Date(df$DATE_5243, format = "%m/%d/%Y")
+    data = subset(df, DATE_5243 > "2020-12-31" & DATE_5243 < "2022-01-01")
+    
+    return( data %>% mutate(Month = format(DATE_5243, "%Y/%m"))
+            %>%group_by(Month)%>%summarise( num = 0) 
+            %>%mutate( month = paste(Month,"/01", sep = ""))) 
+  })
+  
+  shooting_comp_data1 <- reactive({
+    df = shooting_df %>% filter(PRECINCT_5243 == input$safety_precinct_1)
+    
+    df$DATE_5243 <- as.Date(df$DATE_5243, format = "%m/%d/%Y")
+    data = subset(df, DATE_5243 > "2020-12-31" & DATE_5243 < "2022-01-01")
+    
+    return( data %>% mutate(Month = format(DATE_5243, "%Y/%m"))
+            %>%group_by(Month)%>%summarise( num = length(DATE_5243)) 
+            %>%mutate( month = paste(Month,"/01", sep = ""))) 
+  })
+  
+  shooting_comp_data2 <- reactive({
+    df = shooting_df %>% filter(PRECINCT_5243 == input$safety_precinct_2)
+    
+    df$DATE_5243 <- as.Date(df$DATE_5243, format = "%m/%d/%Y")
+    data = subset(df, DATE_5243 > "2020-12-31" & DATE_5243 < "2022-01-01")
+    
+    return( data %>% mutate(Month = format(DATE_5243, "%Y/%m"))
+            %>%group_by(Month)%>%summarise( num = length(DATE_5243)) 
+            %>%mutate( month = paste(Month,"/01", sep = ""))) 
+  })
+  
+  output$safety_shooting_comparison <- renderPlot({
+    data <- shooting_comp_skeleton()
+    data1 <- shooting_comp_data1()
+    data2 <- shooting_comp_data2()
+    # Time Series
+    par(mar=c(5.1, 4.1, 4.1, 8.1), xpd=TRUE)
+    plot(num ~ as.Date(month), data,
+         ylab = "monthly instances ", xlab = "", col="black",
+         ylim=c(min(min(data1$num), min(data2$num)), max(max(data1$num), max(data2$num))),
+         main = paste("Number of shooting instance in all precincts during 2021"))
+    lines(num ~ as.Date(month), data1, xaxt = "n", type = "o", pch = 22, lty = 1, pty = 1,
+          col="blue")
+    lines(num ~ as.Date(month), data2, xaxt = "n", type = "o", pch = 22, lty = 2, pty = 2,
+          col="red")
+    legend("topright", inset=c(-0.2,0), legend=c(input$safety_precinct_1, input$safety_precinct_2), lty=c(1,2), title="Precinct")
+  })
+  
+  
+  arrest_comp_skeleton <- reactive({
+    df = arrest_df
+    df$DATE_5243 <- as.Date(df$DATE_5243, format = "%m/%d/%Y")
+    data = subset(df, DATE_5243 > "2020-12-31" & DATE_5243 < "2022-01-01")
+    
+    return( data %>% mutate(Month = format(DATE_5243, "%Y/%m"))
+            %>%group_by(Month)%>%summarise( num = 0) 
+            %>%mutate( month = paste(Month,"/01", sep = ""))) 
+  })
+  
+  arrest_comp_data1 <- reactive({
+    df = arrest_df %>% filter(PRECINCT_5243 == input$safety_precinct_1)
+    
+    df$DATE_5243 <- as.Date(df$DATE_5243, format = "%m/%d/%Y")
+    data = subset(df, DATE_5243 > "2020-12-31" & DATE_5243 < "2022-01-01")
+    
+    return( data %>% mutate(Month = format(DATE_5243, "%Y/%m"))
+            %>%group_by(Month)%>%summarise( num = length(DATE_5243)) 
+            %>%mutate( month = paste(Month,"/01", sep = ""))) 
+  })
+  
+  arrest_comp_data2 <- reactive({
+    df = arrest_df %>% filter(PRECINCT_5243 == input$safety_precinct_2)
+    
+    df$DATE_5243 <- as.Date(df$DATE_5243, format = "%m/%d/%Y")
+    data = subset(df, DATE_5243 > "2020-12-31" & DATE_5243 < "2022-01-01")
+    
+    return( data %>% mutate(Month = format(DATE_5243, "%Y/%m"))
+            %>%group_by(Month)%>%summarise( num = length(DATE_5243)) 
+            %>%mutate( month = paste(Month,"/01", sep = ""))) 
+  })
+  
+  output$safety_arrest_comparison <- renderPlot({
+    data <- arrest_comp_skeleton()
+    data1 <- arrest_comp_data1()
+    data2 <- arrest_comp_data2()
+    # Time Series
+    par(mar=c(5.1, 4.1, 4.1, 8.1), xpd=TRUE)
+    plot(num ~ as.Date(month), data,
+         ylab = "monthly instances ", xlab = "", col="black",
+         ylim=c(min(min(data1$num), min(data2$num)), max(max(data1$num), max(data2$num))),
+         main = paste("Number of arrest instance in all precincts during 2021"))
+    lines(num ~ as.Date(month), data1, xaxt = "n", type = "o", pch = 22, lty = 1, pty = 1,
+          col="blue")
+    lines(num ~ as.Date(month), data2, xaxt = "n", type = "o", pch = 22, lty = 2, pty = 2,
+          col="red")
+    legend("topright", inset=c(-0.2,0), legend=c(input$safety_precinct_1, input$safety_precinct_2), lty=c(1,2), title="Precinct")
+  })
+  
+  force_comp_skeleton <- reactive({
+    df = force_df
+    df$DATE_5243 <- as.Date(df$DATE_5243, format = "%m/%d/%Y")
+    data = subset(df, DATE_5243 > "2020-12-31" & DATE_5243 < "2022-01-01")
+    
+    return( data %>% mutate(Month = format(DATE_5243, "%Y/%m"))
+            %>%group_by(Month)%>%summarise( num = 0) 
+            %>%mutate( month = paste(Month,"/01", sep = ""))) 
+  })
+  
+  force_comp_data1 <- reactive({
+    df = force_df %>% filter(PRECINCT_5243 == input$safety_precinct_1)
+    
+    df$DATE_5243 <- as.Date(df$DATE_5243, format = "%m/%d/%Y")
+    data = subset(df, DATE_5243 > "2020-12-31" & DATE_5243 < "2022-01-01")
+    
+    return( data %>% mutate(Month = format(DATE_5243, "%Y/%m"))
+            %>%group_by(Month)%>%summarise( num = length(DATE_5243)) 
+            %>%mutate( month = paste(Month,"/01", sep = ""))) 
+  })
+  
+  force_comp_data2 <- reactive({
+    df = force_df %>% filter(PRECINCT_5243 == input$safety_precinct_2)
+    
+    df$DATE_5243 <- as.Date(df$DATE_5243, format = "%m/%d/%Y")
+    data = subset(df, DATE_5243 > "2020-12-31" & DATE_5243 < "2022-01-01")
+    
+    return( data %>% mutate(Month = format(DATE_5243, "%Y/%m"))
+            %>%group_by(Month)%>%summarise( num = length(DATE_5243)) 
+            %>%mutate( month = paste(Month,"/01", sep = ""))) 
+  })
+  
+  output$safety_force_comparison <- renderPlot({
+    data <- force_comp_skeleton()
+    data1 <- force_comp_data1()
+    data2 <- force_comp_data2()
+    # Time Series
+    par(mar=c(5.1, 4.1, 4.1, 8.1), xpd=TRUE)
+    plot(num ~ as.Date(month), data,
+         ylab = "monthly instances ", xlab = "", col="black",
+         ylim=c(min(min(data1$num), min(data2$num)), max(max(data1$num), max(data2$num))),
+         main = paste("Number of use of force instance in all precincts during 2021"))
+    lines(num ~ as.Date(month), data1, xaxt = "n", type = "o", pch = 22, lty = 1, pty = 1,
+          col="blue")
+    lines(num ~ as.Date(month), data2, xaxt = "n", type = "o", pch = 22, lty = 2, pty = 2,
+          col="red")
+    legend("topright", inset=c(-0.2,0), legend=c(input$safety_precinct_1, input$safety_precinct_2), lty=c(1,2), title="Precinct")
+  })
+  
 
   
 ##  ............................................................................

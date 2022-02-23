@@ -148,3 +148,80 @@ legend <- "<div class='legend-custom'>
                    <div class='legend-element-name'>Schools</div>
                </div>
            </div>"
+
+
+#   ____________________________________________________________________________
+#   Safety Page                                                             ####
+safetyPage <- function() {
+  fluidPage(
+    
+    # App title ----
+    titlePanel("Safety Information"),
+    
+    
+    tabsetPanel(
+      tabPanel("Precinct Safety Status",
+        # Sidebar layout with input and output definitions ----
+        sidebarLayout(
+          
+          # Sidebar panel for inputs ----
+          sidebarPanel(
+            
+            # Input: Select for the borough ----
+            selectInput(inputId = "safety_measure_type",
+                        label = "Choose a safety type of interest:",
+                        choices = c("shooting", "arrest", "use_of_force")),
+            
+            selectInput(inputId = "safety_police_precinct",
+                        label = "Choose a precinct to view details:",
+                        choices = all_precinct_ids)
+          ),
+          
+          # Main panel for displaying outputs ----
+          mainPanel(
+            textOutput(outputId = "safety_summary"),
+            # Output: tsPlot on borough ----
+            plotOutput(outputId = "safetyMapPlot"),
+            
+            plotOutput(outputId = "safetyTrend"),
+            
+            plotOutput(outputId = "covidTrend")
+            
+          )
+        )
+      ),
+      
+      tabPanel("Precinct Safety Comparison",
+        # Sidebar layout with input and output definitions ----
+        sidebarLayout(
+         
+         # Sidebar panel for inputs ----
+         sidebarPanel(
+           
+           # Input: Select for the borough ----
+           selectInput(inputId = "safety_precinct_1",
+                       label = "Choose the first precinct to compare:",
+                       choices = all_precinct_ids),
+           
+           selectInput(inputId = "safety_precinct_2",
+                       label = "Choose the second precinct to compare:",
+                       choices = all_precinct_ids)
+         ),
+         
+         # Main panel for displaying outputs ----
+         mainPanel(
+           textOutput(outputId = "safety_comparison_summary"),
+           plotOutput(outputId = "safety_pies"),
+           # Output: tsPlot on borough ----
+           plotOutput(outputId = "safety_shooting_comparison"),
+           
+           plotOutput(outputId = "safety_arrest_comparison"),
+           
+           plotOutput(outputId = "safety_force_comparison")
+           
+         )
+        )
+      )
+    )
+  )
+}
