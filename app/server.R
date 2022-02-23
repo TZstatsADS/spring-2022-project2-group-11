@@ -113,7 +113,19 @@ if (!require("sqldf")) {
   library(devtools)
 }
 
-
+library(shiny)
+library(leaflet)
+library(shiny)
+library(dtplyr)
+library(dplyr)
+library(DT)
+library(lubridate)
+library(stringr)
+library(leaflet)
+require(rgdal)
+require(ggplot2)
+library(shinythemes)
+library(broom)
 
 # source("keyring.R")
 
@@ -542,8 +554,47 @@ server <- function(input, output) {
     
   }) #renderPlot end
   
+  #---------Events tab---------------
+  events = read.csv("data/Events/Events.csv")
+  Event_filter <- reactive({
+    req(input$RegionFinder)
+    req(input$CategoryFinder)
+    req(input$metricChoice)
+    req(input$TimeFinderMin)
+    req(input$TimeFinderMax)
+    
+    startTime = strftime(as.POSIXct(paste(input$TimeFinderMin,":00",sep = ""),format="%H:%M:%S"),"%H:%M:%S")
+    endTime = strftime(as.POSIXct(paste(input$TimeFinderMax,":00",sep = ""),format="%H:%M:%S"),"%H:%M:%S")
+    
+    filter(events, Borough %in% input$RegionFinder) %>%
+      filter(Category %in% input$CategoryFinder) %>%
+      filter(strftime(time,"%H:%M:%S") > startTime) %>%
+      filter(strftime(time,"%H:%M:%S") < endTime)
+  })
   
+  output$plot1 <- renderPlot({
+    input$RegionFinder
+    input$CategoryFinder
+    input$metricChoice
+    if(input$metricChoice == "Attendance"){
+      ggplot()+
+        geom_bar(data = Event_filter(),aes(y = Attendance, x = Borough, fill = Category), stat = "summary", fun = "sum")+
+        ggtitle("Total Space in Each Borough")+
+        theme(plot.title = element_text(hjust = 0.5))
+    }else if(input$metricChoice == "Num"){
+      ggplot(data = Event_filter(), aes(x = Borough, fill = Category))+
+        geom_bar()+
+        ggtitle("Number of Events in Each Borough")+
+        theme(plot.title = element_text(hjust = 0.5))
+    }
+  })
   
+  #Plot the subway station map
+  output$mymap <- renderLeaflet({
+    leaflet(data = Event_filter()) %>%
+      addTiles() %>%
+      addMarkers(~lon, ~lat, label = ~Location)
+  })
   
   
   

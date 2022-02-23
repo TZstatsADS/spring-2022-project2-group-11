@@ -168,3 +168,7 @@ w <- read.csv2("data/wikipedia/wikiEditsByCT.csv",
 w %<>% filter(year > 2004 & year <= 2016)
 
 print("Wikipedia data complete")
+
+
+
+
