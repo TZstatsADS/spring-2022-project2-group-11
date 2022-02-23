@@ -204,7 +204,7 @@ if (!require("padr")) {
 
 
 
-death = read_csv("../data/nyc_death.csv") %>% 
+death = read_csv("data/nyc_death.csv") %>% 
   janitor::clean_names() %>% 
   filter(
     race_ethnicity != "Not Stated/Unknown",
@@ -240,4 +240,4 @@ death =
     leading_cause = str_replace(leading_cause, " All Other Causes", "Other")
   )
 
-write_csv(death, "../data/cleaned_nyc_data.csv")
+write_csv(death, "data/cleaned_nyc_data.csv")
