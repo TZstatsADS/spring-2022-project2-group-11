@@ -5,9 +5,9 @@ account: noahlove
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 5719445
-bundleId: 5611700
+bundleId: 5611725
 url: https://noahlove.shinyapps.io/nycCovid/
-when: 1645657032.7923
-lastSyncTime: 1645657032.79231
+when: 1645657612.14881
+lastSyncTime: 1645657612.14882
 asMultiple: FALSE
 asStatic: FALSE
