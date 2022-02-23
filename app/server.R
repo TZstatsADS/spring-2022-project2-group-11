@@ -24,6 +24,10 @@ if (!require("dplyr")) {
   install.packages("dplyr")
   library(devtools)
 }
+if (!require("dtplyr")) {
+  install.packages("dtplyr")
+  library(devtools)
+}
 if (!require("tidyr")) {
   install.packages("tidyr")
   library(devtools)
