@@ -22,6 +22,7 @@ The four tabs presented are a proof of concept, illustrating
 	+ Precinct safety comparison: It includes choices of two precincts each time to compare all three types of safety information using pie charts and line charts. It aims to provide an intuitive safety analysis for those who need to decide on travel locations.
 
 - Precautions 
+	+ Know before you go: One of the biggest concers to travellers are crazy accidents that might occur on a trip. This is particularly bad when travelling to New York City because of how much news coverage the city gets. This tab is designed to show travelers that once you take the necessary precautions against Covid, what else might harm you in the city. While it sounds brutal, it is showing that most everyone in the city will die due to diseases or chronic problems, not stabbings or murder. The data is on a "lag" from the city so it is the most recent available. 
 
 These should give an overview of this new city and help people know what to expect on their travels. 
 
