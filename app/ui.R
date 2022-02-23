@@ -6,6 +6,15 @@ library(leaflet)
 library(plotly)
 library(shinyjs)
 library(shinyBS)
+library(dtplyr)
+library(dplyr)
+library(DT)
+library(lubridate)
+library(stringr)
+require(rgdal)
+require(ggplot2)
+library(shinythemes)
+library(broom)
 
 source("appParts.R")
 
@@ -50,8 +59,38 @@ ui <- navbarPage(title = "NYC in Covid",
                  
                    # ----------------------------------
                    # tab panel 3 - Location Comparison
-                   tabPanel("Health",
-                            fluidPage()
+                   tabPanel("Events",
+                            fluidPage(  sidebarLayout(
+                              sidebarPanel(
+                                checkboxGroupInput(inputId = "RegionFinder",
+                                                   label = "Select Regions(s):",
+                                                   choices = c("Manhattan" = "Manhattan", "Brooklyn" = "Brooklyn", "Queens" = "Queens", "Staten Island" = "Staten Island", "Bronx" = "Bronx"),
+                                                   selected = c("Manhattan","Brooklyn","Queens","Staten Island", "Bronx")),
+                                checkboxGroupInput(inputId = "CategoryFinder",
+                                                   label = "Select Event Categories(s):",
+                                                   choices = c("Fitness" = "Fitness", "Nature" = "Nature", "Arts/Culture" = "Arts/Culture", "Academic" = "Academic/Out of School time", "Performance" = "Performance", "Family Festival" = "Family Festival", "Sport" = "Sport", "Mobile Unit" = "Mobile Unit", "KIM" = "KIM"),
+                                                   selected = c("Fitness")),
+                                radioButtons(inputId="metricChoice", label="Select a metric you want to see", 
+                                             choices=c("Total Space" = "Attendance", "Number of Events" = "Num")),
+                                fluidRow(column(5,
+                                                textInput(inputId = "TimeFinderMin",
+                                                          label = "From:",
+                                                          value = "1:00",
+                                                          width = "100px")
+                                ),
+                                column(5, ofset = 3,
+                                       textInput(inputId = "TimeFinderMax",
+                                                 label = "To:",
+                                                 value = "23:00",
+                                                 width = "100px")
+                                )),
+                                helpText("Please enter time 00:00-23:59"),
+                              ),
+                              mainPanel(
+                                plotOutput("plot1"),
+                                leafletOutput("mymap")
+                              )
+                            ))
                    ),                 
                  
                    # ----------------------------------
@@ -106,38 +145,8 @@ ui <- navbarPage(title = "NYC in Covid",
                    
                    # ----------------------------------
                    
-                   # tab panel 4 - Location Comparison
-                   tabPanel("Safety", fluidPage(
-                     
-                     # App title ----
-                     titlePanel("Safety Information"),
-                     
-                     # Sidebar layout with input and output definitions ----
-                     sidebarLayout(
-                       
-                       # Sidebar panel for inputs ----
-                       sidebarPanel(
-                         
-                         # Input: Select for the borough ----
-                         selectInput(inputId = "safety_measure_type",
-                                     label = "Choose a safety type of interest:",
-                                     choices = c("shooting", "arrest", "use_of_force"))
-                       ),
-                       
-                       # Main panel for displaying outputs ----
-                       mainPanel(
-                         
-                         # Output: tsPlot on borough ----
-                         plotOutput(outputId = "safetyMapPlot"),
-                         
-                         plotOutput(outputId = "safetyTrend"),
-                         
-                         plotOutput(outputId = "covidTrend")
-                         
-                       )
-                     )
-                   )
-                   ),
+                   # tab panel 4 - Safety Comparison
+                   tabPanel("Safety", safetyPage()),
                    
                    # ----------------------------------
                    # tab panel 5 - About
