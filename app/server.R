@@ -599,6 +599,58 @@ server <- function(input, output) {
       addTiles() %>%
       addMarkers(~lon, ~lat, label = ~Location)
   })
+
+  
+  #__________
+  #
+  
+  output$plot2<-renderPlot({
+    ggplot() +
+      geom_cartogram(data = mymap3, aes(x = long, y = lat, map_id = id), map = mymap3) +
+      geom_cartogram(data = film_permits_count, map = mymap3, aes(fill = n, map_id = zip))+
+      scale_fill_gradientn(colours = rev(brewer.pal(10, "Spectral"))) +
+      coord_map() +
+      theme_map()
+  }
+)
+  
+  
+  
+  
+  selections = reactive({
+    req(input$year)
+    req(input$sex)
+    req(input$race)
+    filter(nyc_mortality, year == input$year) %>%
+      filter(sex %in% input$sex) %>%
+      filter(race_ethnicity %in% input$race)
+    
+  })
+  
+  output$deathPlot = renderPlot({
+    ggplot(data = selections(), aes(x = reorder(leading_cause, -deaths), y = deaths)) +
+      geom_bar(stat = 'identity', color = 'steelblue', fill = 'steelblue') +
+      labs(
+        title = "Top 10 Leading Causes of Death",
+        x = "Causes",
+        y = "Number of Deaths"
+      ) +
+      theme(axis.text.x = element_text(angle = 45, hjust=1))
+  })
+  
+  output$deathTable = 
+    DT::renderDataTable({
+      DT::datatable(selections()[,c("leading_cause", "deaths", "death_rate", "age_adjusted_death_rate")],
+                    colnames = c("Leading Cause of Death", "Number of Deaths", "Death Rate", "Age-Adjusted Death Rate"),
+                    options = list(order = list(2, 'des')),
+                    rownames = FALSE,
+      )
+      
+    })
+  
+  
+  
+
   
   
   

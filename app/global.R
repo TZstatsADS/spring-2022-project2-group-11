@@ -58,6 +58,10 @@ if (!require("broom")) {
   install.packages("broom")
   library(broom)
 }
+if (!require("janitor")) {
+  install.packages("janitor")
+  library(janitor)
+}
 
 library(shiny)
 library(shinydashboard)
@@ -135,7 +139,168 @@ rs_inspect <- sqldf("
                     ZIPCODE is not NULL
                     ")
 
-print("processed all data")
+print("processed all safety data")
 
 
 
+
+
+
+
+#_________________________________________________
+#           Asthetics
+
+if (!require("plotly")) {
+  install.packages("devtools")
+  library(devtools)
+}
+if (!require("rgdal")) {
+  install.packages("rgdal")
+  library(rgdal)
+}
+if (!require("rgeos")) {
+  install.packages("rgeos")
+  library(rgeos)
+}
+if (!require("maptools")) {
+  install.packages("maptools")
+  library(maptools)
+}
+if (!require("ggalt")) {
+  install.packages("ggalt")
+  library(ggalt)
+}
+if (!require("ggthemes")) {
+  install.packages("ggthemes")
+  library(ggthemes)
+}
+if (!require("ggrepel")) {
+  install.packages("ggrepel")
+  library(ggrepel)
+}
+if (!require("RColorBrewer")) {
+  install.packages("RColorBrewer")
+  library(RColorBrewer)
+}
+
+
+# Prepare the zip poly data for US
+mydata <- readOGR(dsn = "../data/cb_2016_us_zcta510_500k", layer = "cb_2016_us_zcta510_500k")
+
+# Texas zip code data
+zip <- read_csv("../data/zip_code_database.csv")
+tx <- filter(zip, state == "TX")
+ny <- filter(zip, state == "NY")
+
+nyc_raw <- read_csv("https://raw.githubusercontent.com/erikgregorywebb/nyc-housing/master/Data/nyc-zip-codes.csv")
+
+names(nyc_raw)[3] <- "zip"
+
+nyc <- filter(ny, zip %in% nyc_raw$zip)
+
+nyc <- merge(nyc, nyc_raw)
+
+
+# Get polygon data for TX only
+mypoly <- subset(mydata, ZCTA5CE10 %in% nyc$zip)
+
+# Create a new group with the first three digit.
+# Drop unnecessary factor levels.
+# Add a fake numeric variable, which is used for coloring polygons later.
+
+mypoly$group <- substr(mypoly$ZCTA5CE10, 1,5)
+mypoly$ZCTA5CE10 <- as.factor(mypoly$ZCTA5CE10)
+mypoly$ZCTA5CE10 <- droplevels(mypoly$ZCTA5CE10)
+
+set.seed(111)
+mypoly$value <- sample.int(n = 10000, size = nrow(mypoly), replace = TRUE)
+
+# Merge polygons using the group variable
+# Create a data frame for ggplot.
+mypoly.union <- unionSpatialPolygons(mypoly, mypoly$group)
+
+mymap3 <- fortify(mypoly.union)
+
+# Check how polygons are like
+
+plot(mypoly)
+plot(mypoly.union, add = T, border = "red", lwd = 1)
+
+
+# Convert SpatialPolygons to data frame and aggregate the fake values
+mypoly.df <- as(mypoly, "data.frame") %>%
+  group_by(group) %>%
+  summarise(value = sum(value))
+
+
+
+# Find a center point for each zip code area
+centers <- data.frame(gCentroid(spgeom = mypoly.union, byid = TRUE))
+centers$zip <- rownames(centers)
+
+
+Film_Permits <- read_csv("../data/Film_Permits.csv")
+
+film_permits_long <- Film_Permits %>%
+  dplyr::rename(zip = `ZipCode(s)`) %>% 
+  separate_rows(zip) 
+
+film_permits_long$zip <- as.factor(film_permits_long$zip)
+film_permits_long$StartDateTime <- mdy_hms(film_permits_long$StartDateTime) 
+
+film_permits_count <- film_permits_long %>% 
+  dplyr::count(zip) %>% 
+  filter(zip != "0")
+
+
+
+ggplot() +
+  geom_cartogram(data = mymap3, aes(x = long, y = lat, map_id = id), map = mymap3) +
+  geom_cartogram(data = film_permits_count, map = mymap3, aes(fill = n, map_id = zip))+
+  scale_fill_gradientn(colours = rev(brewer.pal(10, "Spectral"))) +
+  coord_map() +
+  theme_map()
+
+
+print("processed all  asthetic data")
+
+
+
+
+death = read_csv("../data/nyc_death.csv") %>% 
+  janitor::clean_names() %>% 
+  filter(
+    race_ethnicity != "Not Stated/Unknown",
+    race_ethnicity != "Other Race/ Ethnicity",
+  ) %>% 
+  mutate(
+    deaths = as.numeric(deaths),
+    death_rate = as.numeric(death_rate),
+    age_adjusted_death_rate = as.numeric(age_adjusted_death_rate))
+
+death = 
+  death %>% 
+  mutate(
+    leading_cause = str_replace_all(leading_cause, "[//(//)]", ""),
+    leading_cause = str_replace(leading_cause, "Influenza Flu and Pneumonia J09-J18", "Influenza & Pneumonia"),
+    leading_cause = str_replace(leading_cause, "Accidents Except Drug Posioning V01-X39, X43, X45-X59, Y85-Y86", "Accidents"),
+    leading_cause = str_replace(leading_cause, "Cerebrovascular Disease Stroke: I60-I69", "Cerebrovascular Disease"),
+    leading_cause = str_replace(leading_cause, "Assault Homicide: Y87.1, X85-Y09", "Assault"),
+    leading_cause = str_replace(leading_cause, "Essential Hypertension and Renal Diseases (I10, I12)", "Hypertension & Renal Dis."),
+    leading_cause = str_replace(leading_cause, "Human Immunodeficiency Virus Disease HIV: B20-B24", "HIV"),
+    leading_cause = str_replace(leading_cause, "Diseases of Heart I00-I09, I11, I13, I20-I51", "Diseases of Heart"),
+    leading_cause = str_replace(leading_cause, "Alzheimer's Disease G30", "Alzheimer's Disease"),
+    leading_cause = str_replace(leading_cause, "Chronic Liver Disease and Cirrhosis K70, K73", "Chronic Liver Disease/Cirrhosis"),
+    leading_cause = str_replace(leading_cause, "Malignant Neoplasms Cancer: C00-C97", "Malignant Neoplasms"),
+    leading_cause = str_replace(leading_cause, "Diabetes Mellitus E10-E14", "Diabetes Mellitus"),
+    leading_cause = str_replace(leading_cause, "Mental and Behavioral Disorders due to Accidental Poisoning and Other Psychoactive Substance Use F11-F16, F18-F19, X40-X42, X44", "Accidental Poisoning/Substance Use"),
+    leading_cause = str_replace(leading_cause, "Septicemia A40-A41", "Septicemia"),
+    leading_cause = str_replace(leading_cause, "Chronic Lower Respiratory Diseases J40-J47", "Chronic Lower Respiratory Dis."),
+    leading_cause = str_replace(leading_cause, "Nephritis, Nephrotic Syndrome and Nephrisis N00-N07, N17-N19, N25-N27", "Nephritis"),
+    leading_cause = str_replace(leading_cause, "Certain Conditions originating in the Perinatal Period P00-P96", "Perinatal Period Conditions"),
+    leading_cause = str_replace(leading_cause, "Viral Hepatitis B15-B19", "Viral Hepatitis"),
+    leading_cause = str_replace(leading_cause, "Intentional Self-Harm Suicide: X60-X84, Y87.0", "Suicide"),
+    leading_cause = str_replace(leading_cause, " All Other Causes", "Other")
+  )
+
+write_csv(death, "../data/cleaned_nyc_data.csv")
