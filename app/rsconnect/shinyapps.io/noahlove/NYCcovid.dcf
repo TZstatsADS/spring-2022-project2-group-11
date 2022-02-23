@@ -1,0 +1,13 @@
+name: nycCovid
+title: nycCovid
+username:
+account: noahlove
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 5719445
+bundleId: 5610845
+url: https://noahlove.shinyapps.io/nycCovid/
+when: 1645641733.9783
+lastSyncTime: 1645641733.97831
+asMultiple: FALSE
+asStatic: FALSE
