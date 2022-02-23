@@ -225,3 +225,51 @@ safetyPage <- function() {
     )
   )
 }
+
+
+
+
+googleKey <- "AIzaSyCm-rFyJg0_QZ-EoCFe9ah78e46PSYcypY"
+register_google(key = googleKey) #register for ggmap
+nyc_mortality = read_csv("../data/cleaned_nyc_data.csv")
+#   ____________________________________________________________________________
+#   Safety Page                                                             ####
+astheticPage <- function() {
+  fluidPage(
+    
+    # Application title
+    titlePanel("NYC Mortality by Race and Sex, 2007-2014"),
+    
+    # Sidebar with a 3 inputs 
+    sidebarLayout(
+      sidebarPanel(
+        selectInput(inputId = "year",
+                    label = "Select Year:",
+                    choices = c("2007",
+                                "2008",
+                                "2009",
+                                "2010",
+                                "2011",
+                                "2012",
+                                "2013",
+                                "2014")),
+        radioButtons(inputId = "sex",
+                     label = "Sex:",
+                     choices = c(
+                       "Female" = "F",
+                       "Male" = "M"
+                     )),
+        radioButtons(inputId = "race",
+                     label = "Race/Ethnicity:",
+                     choices = unique(nyc_mortality$race_ethnicity))
+      ),
+      
+      # Show plot and table
+      mainPanel(
+        plotOutput("deathPlot"),
+        DT::dataTableOutput("deathTable")
+      )
+    )
+  )
+
+}

@@ -28,6 +28,9 @@ source("appParts.R")
 #FF5850 red
 #436983 hipster blue
 
+
+
+
 ui <- navbarPage(title = "NYC in Covid",
                    theme = "style/style.css",
                    footer = includeHTML("footer.html"),
@@ -50,11 +53,7 @@ ui <- navbarPage(title = "NYC in Covid",
                    ),
 
                    
-                   # ----------------------------------
-                   # tab panel 3 - Location Comparison
-                   tabPanel("Aesthetics",
-                            fluidPage()
-                   ),
+
                    
                  
                    # ----------------------------------
@@ -147,6 +146,10 @@ ui <- navbarPage(title = "NYC in Covid",
                    
                    # tab panel 4 - Safety Comparison
                    tabPanel("Safety", safetyPage()),
+                 
+                   # ----------------------------------
+                   # tab panel 3 - Location Comparison
+                   tabPanel("Deadly", astheticPage()),
                    
                    # ----------------------------------
                    # tab panel 5 - About
