@@ -7,9 +7,20 @@ Our team presents a vision for a travel agency that helps tourists visit New Yor
 We believe that these agencies should rely more on data driven models for their recommendations. Using live data from New York City, it is possible to recommend where to eat, where to be safely and how to interact with the city. We present dashboards that take a creative approach to open New York City data and put it in the eyes of a travel agent or a potentional tourist. 
 
 The four tabs presented are a proof of concept, illustrating 
-- Restaurant Location & Seating
+- Restaurant
+	+ Restaurant Seating: A map showing the locations of restaurants in NYC with information of restaurant’s name, address, qualification of alcohol, which users can select the boroughs and type of seats they want to know. 
+	+ Restaurant Inspection: A bar plot shows the distribution of the number of restaurants and the inspection grades of restaurants for each cuisine type in each borough. Users can select the borough of their interests. By clicking the checkbox ‘Comparing each borough’, users can get a plot simply comparing the the number of restaurants and the inspection grades of restaurants of boroughs.
+		+ A: < 14 points (Pass Inspection)
+		+ B: 14-27 points
+		+ C: > 27 points 
+
 - Events
+	+ In this part we want to display distribution of events, users could filter the events according to time, location and event types. It also allows the users to choose between total space and number of events. Plan your trip according to your schedule and borough preferences!
 - Safety
+	+ It includes a frequency map of arrest, shooting, and use-of-force information, with choices of any precinct in New York. It also contains a line chart of the number of changes in people's selected precinct and safety type within a year, which can be compared using the line chart of covid cases within a year below.
+Precinct safety comparison:
+ It includes choices of two precincts each time to compare all three types of safety information using pie charts and line charts. It aims to provide an intuitive safety analysis for those who need to decide on travel locations.
+
 - Precautions 
 
 These should give an overview of this new city and help people know what to expect on their travels. 
