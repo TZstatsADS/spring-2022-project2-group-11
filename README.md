@@ -34,12 +34,7 @@ In order to control the number of confirmed cases, restarurants experienced clos
 Another aspect which influenced greatly by covid-19 is the safety issue. As the rise in unemployments and economic downturn caused by covid, instable social events happened more frequently and people need more and more security. The safety part is extremely important for poeple in NYC. 
 NYC is a big international city. For people who travel to NYC, one of the most helpful things is the introduction of events. There are various museums, parks, landmarks, performances all over the NYC, with different opening time. 
 
-+ **Contribution statement**: ([default](doc/a_note_on_contributions.md)) All team members contributed equally in all stages of this project. All team members approve our work presented in this GitHub repository including this contributions statement. 
-
-	+ Kaimin Wang: 
-	+ Noah Love: 
-	+ Kexin Tang: Created the Restaurant tab within two subtabs 'Restaurant Seating and Resraurant Inspection'. Updated the README file.
-	+ Weixu Qian: 
+[Contribution Statement] Noah, Kaimin, Weixun, and Kexin all contributed to the planning and ideas phase of the project. Kexin created the Restaurant tab. Weixun created the events tab. Kaimin created the safety tab and Noah created the precautions tab. Kexin initially updated the README and was later developed by Noah. Noah implemented the shiny design including the Homepage and About page. Each person added the description in their tab. Kaimin is the presenter.
 
 Following [suggestions](http://nicercode.github.io/blog/2013-04-05-projects/) by [RICH FITZJOHN](http://nicercode.github.io/about/#Team) (@richfitz). This folder is orgarnized as follows.
 
