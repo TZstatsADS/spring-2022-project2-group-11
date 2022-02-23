@@ -15,7 +15,8 @@ Ideas for the aspects we want to cover:
 Ideally, each statistics will be calculated once for the last 20 months and then one more recently (like a last 7 days or a last 30 days). 
 
 
-![screenshot](doc/figs/map.jpg)
+![screenshot]<img width="1241" alt="Screen Shot 2022-02-23 at 12 38 10 PM" src="https://user-images.githubusercontent.com/57121482/155375589-f784a217-8f67-4ca8-9d17-f0483a713fdf.png">
+
 
 In this second project of GR5243 Applied Data Science, we develop a *Exploratory Data Analysis and Visualization* shiny app on the work of a **NYC government agency/program** of your choice using NYC open data released on the [NYC Open Data By Agency](https://opendata.cityofnewyork.us/data/) website. In particular, many agencies have adjusted their work or rolled out new programs due to COVID, your app should provide ways for a user to explore quantiative measures of how covid has impacted daily life in NYC from different prospectives. See [Project 2 Description](doc/project2_desc.md) for more details.  
 
@@ -52,6 +53,8 @@ Kexin Tang: Created the Restaurant tab within two subtabs 'Restaurant Seating an
 Weixu Qian: 
 
 Following [suggestions](http://nicercode.github.io/blog/2013-04-05-projects/) by [RICH FITZJOHN](http://nicercode.github.io/about/#Team) (@richfitz). This folder is orgarnized as follows.
+
+
 
 ```
 proj/
