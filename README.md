@@ -1,34 +1,22 @@
 # Project 2: Visiting NYC in Covid-19
 
-### [Project Description](doc/project2_desc.md)
+## OVerview
 
-We are presenting a webpage showing various aspacts of NYC during the the covid-19 pandemic. We want this to feel like a targeted blog, users can explore every aspect of NYC and compare the areas of NYC by themselves to choose where to go. These will be backed up by statistics relating and comparing the different districts. 
+Our team presents a vision for a travel agency that helps tourists visit New York City safely and explore during Covid times. Travel agencies are popular business where travelers, especially those from further away, have an agent with more expierence make their arrangements and plan their trip. This allows for a leaisurely trip without having to worry about planning!
 
-Ideas for the aspects we want to cover: 
+We believe that these agencies should rely more on data driven models for their recommendations. Using live data from New York City, it is possible to recommend where to eat, where to be safely and how to interact with the city. We present dashboards that take a creative approach to open New York City data and put it in the eyes of a travel agent or a potentional tourist. 
 
-- Kaimin - Safety data
-- Weixun - Events
-- Kexin - Restaurant Location & Seating/Inspection
-- Noah - Causes of death
+The four tabs presented are a proof of concept, illustrating 
+- Restaurant Location & Seating
+- Events
+- Safety
+- Precautions 
 
-
-Ideally, each statistics will be calculated once for the last 20 months and then one more recently (like a last 7 days or a last 30 days). 
+These should give an overview of this new city and help people know what to expect on their travels. 
 
 
 ![screenshot]<img width="1241" alt="Screen Shot 2022-02-23 at 12 38 10 PM" src="https://user-images.githubusercontent.com/57121482/155375589-f784a217-8f67-4ca8-9d17-f0483a713fdf.png">
 
-
-In this second project of GR5243 Applied Data Science, we develop a *Exploratory Data Analysis and Visualization* shiny app on the work of a **NYC government agency/program** of your choice using NYC open data released on the [NYC Open Data By Agency](https://opendata.cityofnewyork.us/data/) website. In particular, many agencies have adjusted their work or rolled out new programs due to COVID, your app should provide ways for a user to explore quantiative measures of how covid has impacted daily life in NYC from different prospectives. See [Project 2 Description](doc/project2_desc.md) for more details.  
-
-The **learning goals** for this project is:
-
-- business intelligence for data science
-- data cleaning
-- data visualization
-- systems development/design life cycle
-- shiny app/shiny server
-
-*The above general statement about project 2 can be removed once you are finished with your project. It is optional.
 
 ## Project Title: NYC in Covid
 Term: Spring 2022
