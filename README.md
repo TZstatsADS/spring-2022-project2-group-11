@@ -26,7 +26,7 @@ The four tabs presented are a proof of concept, illustrating
 These should give an overview of this new city and help people know what to expect on their travels. 
 
 
-![screenshot]<img width="1241" alt="Screen Shot 2022-02-23 at 12 38 10 PM" src="https://user-images.githubusercontent.com/57121482/155375589-f784a217-8f67-4ca8-9d17-f0483a713fdf.png">
+<img width="1241" alt="Screen Shot 2022-02-23 at 12 38 10 PM" src="https://user-images.githubusercontent.com/57121482/155375589-f784a217-8f67-4ca8-9d17-f0483a713fdf.png">
 
 
 ## Project Title: NYC in Covid
