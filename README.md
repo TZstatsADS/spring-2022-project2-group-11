@@ -7,9 +7,9 @@ We are presenting a webpage showing various aspacts of NYC during the the covid-
 Ideas for the aspects we want to cover: 
 
 - Kaimin - Safety data
-- Noah - Cleanliness and loudness metric. Visibility
 - Weixun - Events
 - Kexin - Restaurant Location & Seating/Inspection
+- Noah - Causes of death
 
 
 Ideally, each statistics will be calculated once for the last 20 months and then one more recently (like a last 7 days or a last 30 days). 
