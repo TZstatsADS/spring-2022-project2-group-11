@@ -2,134 +2,132 @@
 #   Server                                                                  ####
 if (!require("shiny")) {
   install.packages("shiny")
-  library(devtools)
+  library(shiny)
 }
 if (!require("rgdal")) {
   install.packages("rgdal")
-  library(devtools)
+  library(rgdal)
 }
 if (!require("leaflet")) {
   install.packages("leaflet")
-  library(devtools)
+  library(leaflet)
 }
 if (!require("sp")) {
   install.packages("sp")
-  library(devtools)
+  library(sp)
 }
 if (!require("plotly")) {
   install.packages("plotly")
-  library(devtools)
+  library(plotly)
 }
 if (!require("dplyr")) {
   install.packages("dplyr")
-  library(devtools)
+  library(dplyr)
 }
 if (!require("dtplyr")) {
   install.packages("dtplyr")
-  library(devtools)
+  library(dtplyr)
 }
 if (!require("tidyr")) {
   install.packages("tidyr")
-  library(devtools)
+  library(tidyr)
 }
 if (!require("magrittr")) {
   install.packages("magrittr")
-  library(devtools)
+  library(magrittr)
 }
 if (!require("lubridate")) {
   install.packages("lubridate")
-  library(devtools)
+  library(lubridate)
 }
 if (!require("ggmap")) {
   install.packages("ggmap")
-  library(devtools)
+  library(ggmap)
 }
 if (!require("xts")) {
   install.packages("xts")
-  library(devtools)
+  library(xts)
 }
 if (!require("shinyjs")) {
   install.packages("shinyjs")
-  library(devtools)
+  library(shinyjs)
 }
 if (!require("urltools")) {
   install.packages("urltools")
-  library(devtools)
+  library(urltools)
 }
 if (!require("utils")) {
   install.packages("utils")
-  library(devtools)
+  library(utils)
 }
 if (!require("rvest")) {
   install.packages("rvest")
-  library(devtools)
+  library(rvest)
 }
 if (!require("stringr")) {
   install.packages("stringr")
-  library(devtools)
+  library(stringr)
 }
 if (!require("rgeos")) {
   install.packages("rgeos")
-  library(devtools)
+  library(rgeos)
 }
 if (!require("xml2")) {
   install.packages("xml2")
-  library(devtools)
+  library(xml2)
 }
 if (!require("selectr")) {
   install.packages("selectr")
-  library(devtools)
+  library(selectr)
 }
 if (!require("purrr")) {
   install.packages("purrr")
-  library(devtools)
+  library(purrr)
 }
 if (!require("raster")) {
   install.packages("raster")
-  library(devtools)
+  library(raster)
 }
 if (!require("RColorBrewer")) {
   install.packages("RColorBrewer")
-  library(devtools)
+  library(RColorBrewer)
 }
 if (!require("DT")) {
   install.packages("DT")
-  library(devtools)
+  library(DT)
 }
 if (!require("ggplot2")) {
   install.packages("ggplot2")
-  library(devtools)
+  library(ggplot2)
 }
 if (!require("readxl")) {
   install.packages("readxl")
-  library(devtools)
+  library(readxl)
 }
 if (!require("htmltools")) {
   install.packages("htmltools")
-  library(devtools)
+  library(htmltools)
 }
 if (!require("htmlwidgets")) {
   install.packages("htmlwidgets")
-  library(devtools)
+  library(htmlwidgets)
 }
 if (!require("sqldf")) {
   install.packages("sqldf")
-  library(devtools)
+  library(sqldf)
 }
-
-library(shiny)
-library(leaflet)
-library(shiny)
-library(dtplyr)
-library(dplyr)
-library(DT)
-library(lubridate)
-library(stringr)
-library(leaflet)
-require(rgdal)
-require(ggplot2)
-library(shinythemes)
-library(broom)
+if (!require("rsconnect")) {
+  install.packages("rsconnect")
+  library(rsconnect)
+}
+if (!require("shinythemes")) {
+  install.packages("shinythemes")
+  library(shinythemes)
+}
+if (!require("broom")) {
+  install.packages("broom")
+  library(broom)
+}
 
 # source("keyring.R")
 
