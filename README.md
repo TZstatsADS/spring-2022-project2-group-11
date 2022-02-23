@@ -1,6 +1,6 @@
 # Project 2: Visiting NYC in Covid-19
 
-## OVerview
+## Overview
 
 Our team presents a vision for a travel agency that helps tourists visit New York City safely and explore during Covid times. Travel agencies are popular business where travelers, especially those from further away, have an agent with more expierence make their arrangements and plan their trip. This allows for a leaisurely trip without having to worry about planning!
 
