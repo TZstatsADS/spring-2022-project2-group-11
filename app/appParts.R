@@ -231,7 +231,7 @@ safetyPage <- function() {
 
 googleKey <- "AIzaSyCm-rFyJg0_QZ-EoCFe9ah78e46PSYcypY"
 register_google(key = googleKey) #register for ggmap
-nyc_mortality = read_csv("../data/cleaned_nyc_data.csv")
+nyc_mortality = read_csv("data/cleaned_nyc_data.csv")
 #   ____________________________________________________________________________
 #   Safety Page                                                             ####
 astheticPage <- function() {
