@@ -153,8 +153,7 @@ ui <- navbarPage(title = "NYC in Covid",
                    
                    # ----------------------------------
                    # tab panel 5 - About
-                   tabPanel("AboutUS",
-                            includeHTML("about.html"),
+                   tabPanel("",
                             shinyjs::useShinyjs(),
                             tags$head(
                                 tags$link(rel = "stylesheet", 

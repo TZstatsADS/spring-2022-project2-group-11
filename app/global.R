@@ -202,7 +202,7 @@ if (!require("padr")) {
 
 
 
-
+# reference: https://github.com/emilyhalford/nyc_death_post
 
 death = read_csv("data/nyc_death.csv") %>% 
   janitor::clean_names() %>% 
