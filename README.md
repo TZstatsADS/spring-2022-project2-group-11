@@ -40,12 +40,13 @@ Term: Spring 2022
 + **Shiny Link**: https://noahlove.shinyapps.io/nycCovid/
 + **Project summary**: 
 
-During the covid-19 pandemic, people's lives changed dramatically, especially for poeple living in big cities like New York. 
-In order to control the number of confirmed cases, restarurants experienced closing in the earlier stage of covid-19 and reopening in the summer time, when they could sell food for takeout or delivery. Within the popularization of covid vaccines, restaurants are allowed to provide outdoor dinning, including on the sidewalk or roadway. 
-Another aspect which influenced greatly by covid-19 is the safety issue. As the rise in unemployments and economic downturn caused by covid, instable social events happened more frequently and people need more and more security. The safety part is extremely important for poeple in NYC. 
-NYC is a big international city. For people who travel to NYC, one of the most helpful things is the introduction of events. There are various museums, parks, landmarks, performances all over the NYC, with different opening time. 
+During the covid-19 pandemic, people's lives changed dramatically, especially for people living in big cities like New York. To control the number of confirmed cases, restaurants experienced closing in the earlier stage of covid-19 and reopening in the summertime, when they could sell food for takeout or delivery. Within the popularization of covid vaccines, restaurants provide outdoor dining, including on the sidewalk or roadway.
 
-[Contribution Statement] Noah, Kaimin, Weixun, and Kexin all contributed to the planning and ideas phase of the project. Kexin created the Restaurant tab. Weixun created the events tab. Kaimin created the safety tab and Noah created the precautions tab. Kexin initially updated the README and was later developed by Noah. Noah implemented the shiny design including the Homepage and About page. Each person added the description in their tab. Kaimin is the presenter. Noah packaged and uploaded the file to shiny Rstudio cloud. 
+Another aspect that influenced greatly by covid-19 is the safety issue. As the rise in unemployment and economic downturn caused by covid, unstable social events happened more frequently while people admired more and more security. The safety part is critical for people in NYC. Therefore, our travel agency app developed safety information about the arrest, shooting, and use-of-force to give users important analysis data and intuitive comparison graphs. We also produced the cause of death in New York to share traveler-related health advice.
+
+NYC is a big international city. For people who travel to NYC, one of the most helpful things is the introduction of events. There are various museums, parks, landmarks, performances all over NYC, with different opening times. Our travel agency app An interactive event map is produced, allowing the traveler to choose the type of event of interest, the time of participation, and the geographic location.
+
+[Contribution Statement] Noah, Kaimin, Weixun, and Kexin all contributed to the planning and ideas phase of the project. Kexin created the Restaurant tab. Weixun created the events tab. Kaimin created the safety tab and Noah created the precautions tab. Kexin initially updated the README and was later developed by Noah and Kaimin modified the content. Noah implemented the shiny design including the Homepage and About page. Each person added the description of their tab. Kaimin is the presenter. Noah packaged and uploaded the file to shiny Rstudio cloud. 
 
 Following [suggestions](http://nicercode.github.io/blog/2013-04-05-projects/) by [RICH FITZJOHN](http://nicercode.github.io/about/#Team) (@richfitz). This folder is orgarnized as follows.
 
