@@ -21,13 +21,14 @@ These should give an overview of this new city and help people know what to expe
 ## Project Title: NYC in Covid
 Term: Spring 2022
 + Team #11
-+ **Projec title**: Team members: 
++ **Team members**: 
 	+ Kaimin Wang
 	+ Noah Love
 	+ Kexin Tang
 	+ Weixu Qian
-+ Shiny Link: 
++ **Shiny Link**: 
 + **Project summary**: 
+
 During the covid-19 pandemic, people's lives changed dramatically, especially for poeple living in big cities like New York. 
 In order to control the number of confirmed cases, restarurants experienced closing in the earlier stage of covid-19 and reopening in the summer time, when they could sell food for takeout or delivery. Within the popularization of covid vaccines, restaurants are allowed to provide outdoor dinning, including on the sidewalk or roadway. 
 Another aspect which influenced greatly by covid-19 is the safety issue. As the rise in unemployments and economic downturn caused by covid, instable social events happened more frequently and people need more and more security. The safety part is extremely important for poeple in NYC. 
