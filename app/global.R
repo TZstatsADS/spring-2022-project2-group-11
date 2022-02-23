@@ -149,8 +149,15 @@ print("processed all safety data")
 
 #_________________________________________________
 #           Asthetics
-
 if (!require("plotly")) {
+  install.packages("plotly")
+  library(plotly)
+}
+if (!require("tidyverse")) {
+  install.packages("tidyverse")
+  library(tidyverse)
+}
+if (!require("devtools")) {
   install.packages("devtools")
   library(devtools)
 }
@@ -182,6 +189,11 @@ if (!require("RColorBrewer")) {
   install.packages("RColorBrewer")
   library(RColorBrewer)
 }
+if (!require("lubridate")) {
+  install.packages("lubridate")
+  library(lubridate)
+}
+
 
 
 # Prepare the zip poly data for US
