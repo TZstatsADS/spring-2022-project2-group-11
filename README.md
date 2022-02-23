@@ -16,10 +16,10 @@ The four tabs presented are a proof of concept, illustrating
 
 - Events
 	+ In this part we want to display distribution of events, users could filter the events according to time, location and event types. It also allows the users to choose between total space and number of events. Plan your trip according to your schedule and borough preferences!
+
 - Safety
-	+ It includes a frequency map of arrest, shooting, and use-of-force information, with choices of any precinct in New York. It also contains a line chart of the number of changes in people's selected precinct and safety type within a year, which can be compared using the line chart of covid cases within a year below.
-Precinct safety comparison:
- It includes choices of two precincts each time to compare all three types of safety information using pie charts and line charts. It aims to provide an intuitive safety analysis for those who need to decide on travel locations.
+	+ Safety information: It includes a frequency map of arrest, shooting, and use-of-force information, with choices of any precinct in New York. It also contains a line chart of the number of changes in people's selected precinct and safety type within a year, which can be compared using the line chart of covid cases within a year below.
+	+ Precinct safety comparison: It includes choices of two precincts each time to compare all three types of safety information using pie charts and line charts. It aims to provide an intuitive safety analysis for those who need to decide on travel locations.
 
 - Precautions 
 
