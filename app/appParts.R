@@ -238,7 +238,7 @@ astheticPage <- function() {
   fluidPage(
     
     # Application title
-    titlePanel("NYC Mortality by Race and Sex, 2007-2014"),
+    titlePanel("What to be afraid of in NYC"),
     
     # Sidebar with a 3 inputs 
     sidebarLayout(
@@ -252,7 +252,12 @@ astheticPage <- function() {
                                 "2011",
                                 "2012",
                                 "2013",
-                                "2014")),
+                                "2014",
+                                "2015",
+                                "2016",
+                                "2017",
+                                "2018",
+                                "2019")),
         radioButtons(inputId = "sex",
                      label = "Sex:",
                      choices = c(
