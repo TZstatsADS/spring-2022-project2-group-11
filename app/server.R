@@ -366,7 +366,7 @@ server <- function(input, output) {
           col="blue")
     lines(num ~ as.Date(month), data2, xaxt = "n", type = "o", pch = 22, lty = 2, pty = 2,
           col="red")
-    legend("topright", inset=c(-0.2,0), legend=c(input$safety_precinct_1, input$safety_precinct_2), lty=c(1,2), title="Precinct")
+    legend("topright", inset=c(-0.13,0), legend=c(input$safety_precinct_1, input$safety_precinct_2), lty=c(1,2), title="Precinct")
   })
   
   
@@ -416,7 +416,7 @@ server <- function(input, output) {
           col="blue")
     lines(num ~ as.Date(month), data2, xaxt = "n", type = "o", pch = 22, lty = 2, pty = 2,
           col="red")
-    legend("topright", inset=c(-0.2,0), legend=c(input$safety_precinct_1, input$safety_precinct_2), lty=c(1,2), title="Precinct")
+    legend("topright", inset=c(-0.13,0), legend=c(input$safety_precinct_1, input$safety_precinct_2), lty=c(1,2), title="Precinct")
   })
   
   force_comp_skeleton <- reactive({
@@ -465,7 +465,7 @@ server <- function(input, output) {
           col="blue")
     lines(num ~ as.Date(month), data2, xaxt = "n", type = "o", pch = 22, lty = 2, pty = 2,
           col="red")
-    legend("topright", inset=c(-0.2,0), legend=c(input$safety_precinct_1, input$safety_precinct_2), lty=c(1,2), title="Precinct")
+    legend("topright", inset=c(-0.13,0), legend=c(input$safety_precinct_1, input$safety_precinct_2), lty=c(1,2), title="Precinct")
   })
   
 

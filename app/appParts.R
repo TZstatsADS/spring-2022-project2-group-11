@@ -174,7 +174,7 @@ safetyPage <- function() {
             
             selectInput(inputId = "safety_police_precinct",
                         label = "Choose a precinct to view details:",
-                        choices = all_precinct_ids)
+                        choices = all_precinct_ids_with_all)
           ),
           
           # Main panel for displaying outputs ----

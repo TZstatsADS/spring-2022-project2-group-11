@@ -110,7 +110,7 @@ force_df$DATE_5243 <- force_df$Occurrence.Date
 force_count_df$Var1 <- as.character(force_count_df$Var1)
 
 all_precinct_ids <- unique(unique(shooting_count_df$Var1, arrest_count_df$Var1), force_count_df$Var1)
-all_precinct_ids <- cbind(all_precinct_ids, c("all"))
+all_precinct_ids_with_all <- cbind(all_precinct_ids, c("all"))
 
 #Covid data
 cases_by_day_df <- read.csv("https://raw.githubusercontent.com/nychealth/coronavirus-data/master/trends/cases-by-day.csv")
