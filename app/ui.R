@@ -153,18 +153,18 @@ ui <- navbarPage(title = "NYC in Covid",
                    
                    # ----------------------------------
                    # tab panel 5 - About
-                   tabPanel("",
+                   tabPanel("About",
+                            includeHTML("about.html"),
                             shinyjs::useShinyjs(),
                             tags$head(
-                                tags$link(rel = "stylesheet", 
-                                          type = "text/css", 
-                                          href = "plugins/carousel.css"),
-                                tags$script(src = "plugins/holder.js")
+                              tags$link(rel = "stylesheet", 
+                                        type = "text/css", 
+                                        href = "plugins/carousel.css"),
+                              tags$script(src = "plugins/holder.js")
                             ),
                             tags$style(type="text/css",
                                        ".shiny-output-error { visibility: hidden; }",
                                        ".shiny-output-error:before { visibility: hidden; }"
                             )
                    )
-                   
 )
