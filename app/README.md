@@ -6,8 +6,9 @@ Our app is based around common shiny strucutre. The server.R and ui.R are the pr
 
 
 
-HTML and shiny design reference:  https://github.com/phillyo/intelligentsia
-Source of data reference: https://opendata.cityofnewyork.us/
-App is hosted on shiny from RStudio : https://shiny.rstudio.com/
-Causes of death reference: https://github.com/emilyhalford/nyc_death_post
-GGMap requires citation when used: https://journal.r-project.org/archive/2013-1/kahle-wickham.pdf
+- HTML and shiny design reference:  https://github.com/phillyo/intelligentsia
+- Source of data reference: https://opendata.cityofnewyork.us/
+- App is hosted on shiny from RStudio : https://shiny.rstudio.com/
+- Causes of death reference: https://github.com/emilyhalford/nyc_death_post
+- GGMap requires citation when used: https://journal.r-project.org/archive/2013-1/kahle-wickham.pdf
+- Community districts mappings(spatial): https://data.cityofnewyork.us/City-Government/Community-Districts/yfnk-k7r4
