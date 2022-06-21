@@ -34,10 +34,10 @@ These should give an overview of this new city and help people know what to expe
 Term: Spring 2022
 + Team #11
 + **Team members**: 
-	+ Kaimin Wang
 	+ Noah Love
+	+ Weixun Qian
 	+ Kexin Tang
-	+ Weixu Qian
+	+ Kaimin Wang
 + **Shiny Link**: https://noahlove.shinyapps.io/nycCovid/
 + **Project summary**: 
 
